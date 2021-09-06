@@ -1,0 +1,11 @@
+How to create SSL# CA
+openssl genrsa 2048 > ca-key.pem
+openssl req -new -x509 -nodes -days 999999 \
+-key ca-key.pem -out ca-cert.pem
+# csdb
+openssl req -newkey rsa:2048 -days 999999 \
+-nodes -keyout csdb-key.pem -out csdb-req.pem
+openssl rsa -in csdb-key.pem -out csdb-key.pem
+openssl x509 -req -in csdb-req.pem -days 999999 \
+-CA ca-cert.pem -CAkey ca-key.pem -set_serial 01 \
+-out csdb-cert.pem
